@@ -20,7 +20,7 @@ public class WordleAI
     public static boolean guessContains(String guess, char c)
     {
         // TODO 1
-        return true;
+        return guess.indexOf(c) > -1;
     }
     
     /**
