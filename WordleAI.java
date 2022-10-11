@@ -55,8 +55,11 @@ public class WordleAI
      */
     public static boolean isAllStars(String result)
     {
-        // TODO 3
-        return true;
+        Boolean contains = true;
+        for(int i = 0; i < result.length(); i++) {
+        if(result.charAt(i) != '*')
+        contains = false;
+    }return contains;
     }
     
     /**
