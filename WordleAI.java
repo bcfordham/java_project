@@ -19,7 +19,6 @@ public class WordleAI
      */
     public static boolean guessContains(String guess, char c)
     {
-        // TODO 1
         return guess.indexOf(c) > -1;
     }
     
@@ -45,7 +44,27 @@ public class WordleAI
      */
     public static boolean isConsistent(String previousGuess, String result, String newGuess)
     {
-        // TODO 2
+        char previousChar;
+        char newChar;
+        for (int i = 0; i < result.length(); i++) {
+            previousChar = previousGuess.charAt(i);
+            newChar = newGuess.charAt(i);
+            switch(result.charAt(i)) {
+                case '*':
+                    if (previousChar != newChar)
+                        return false;
+                    break;
+                case '.':
+                    if (previousChar == newChar)
+                        return false;
+                    if (!guessContains(newGuess, previousChar))
+                        return false;
+                    break;
+                default:
+                    if (guessContains(newGuess, previousChar))
+                        return false;
+            }
+        }
         return true;
     }
     
