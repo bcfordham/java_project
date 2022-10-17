@@ -19,7 +19,9 @@ public class WordleAIAnalyser
      */
     public WordleAIAnalyser(WordleDictionary dictionary, int wordLength)
     {
-        // TODO 5
+       this.wordLength = wordLength;
+       this.dictionary = dictionary;
+
     }
     
     /**
@@ -41,7 +43,17 @@ public class WordleAIAnalyser
      */
     public void runExperiment(String word)
     {
-        // TODO 6
+        WordleGame AIGame;
+        WordleExperimentResult result;
+        ArrayList<String> collection;
+        
+        
+        ArrayList<WordleExperimentResult> experimentResults = new ArrayList();
+        AIGame = new WordleGame(word);
+        collection= WordleAI.findWord(dictionary, AIGame);
+        
+        result = new WordleExperimentResult(word, collection);
+        experimentResults.add(result);
     }
     
     /**
@@ -51,7 +63,10 @@ public class WordleAIAnalyser
      */
     public void runExperimentsWithAllWords()
     {
-        // TODO 7
+        ArrayList<String> words = dictionary.getWordsWithLength(wordLength);
+        for(String s: words) {
+            runExperiment(s);
+        }
     }
     
     /**
