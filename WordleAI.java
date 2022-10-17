@@ -113,7 +113,48 @@ public class WordleAI
      */
     public static ArrayList<String> findWord(WordleDictionary dictionary, WordleGame game)
     {
-        // TODO 4
+        int counter;
+        String currentWord;
+        String result;
+        ArrayList<String> guessedWords = new ArrayList<>();
+        ArrayList<String> guessResults = new ArrayList<>();
+        
+        // Determine what length of word we should be guessing
+        int secretLength = game.getWordLength();
+        ArrayList<String> words = dictionary.getWordsWithLength(secretLength);
+        
+        // Lexicographically sorts the list of appropriate-length words
+        Collections.sort(words);
+        
+        // Go through each word in the list
+        for (int i = 0; i < words.size(); i++) {
+            counter = 0;
+            currentWord = words.get(i);
+            
+            // Determine if the current word is consistent with previous guesses
+            for (int j = 0; j < guessedWords.size(); j++) {
+                if (isConsistent(guessedWords.get(j), guessResults.get(j), currentWord))
+                    counter++;
+                else
+                    break;
+            }
+            
+            // Use the current word as the guess only if its consistent with every previous attempt
+            if (counter == guessedWords.size()) {
+                result = game.guessWord(currentWord);
+                guessedWords.add(currentWord);
+                guessResults.add(result);
+                
+                // Return the list of guesses if the latest guess was correct
+                if (isAllStars(result))
+                    return guessedWords;
+            }
+            
+            // Stop attempting to guess after 6 tries
+            if (game.getNumGuesses() == 6)
+                break;
+        }
+        
         return null;
     }
 }
