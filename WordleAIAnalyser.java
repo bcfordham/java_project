@@ -19,9 +19,9 @@ public class WordleAIAnalyser
      */
     public WordleAIAnalyser(WordleDictionary dictionary, int wordLength)
     {
-       this.wordLength = wordLength;
-       this.dictionary = dictionary;
-
+        this.wordLength = wordLength;
+        this.dictionary = dictionary;
+        experimentResults = new ArrayList<>();
     }
     
     /**
@@ -47,8 +47,6 @@ public class WordleAIAnalyser
         WordleExperimentResult result;
         ArrayList<String> collection;
         
-        
-        ArrayList<WordleExperimentResult> experimentResults = new ArrayList();
         AIGame = new WordleGame(word);
         collection= WordleAI.findWord(dictionary, AIGame);
         
@@ -100,8 +98,22 @@ public class WordleAIAnalyser
      */
     public ArrayList<String> getUnsolvedWords()
     {
-        // TODO 9
-        return null;
+        ArrayList<String> unsolvedWords = new ArrayList<>();
+        String currentWord;
+        
+        // Loops through each experiment result
+        for (WordleExperimentResult x: experimentResults) {
+            currentWord = x.getWord();
+            
+            // Checks if the AI managed to guess the word or not, and if the word is already in our list
+            if (x.getGuesses() == null && unsolvedWords.contains(currentWord) == false) 
+                unsolvedWords.add(currentWord);
+        }
+        
+        // Lexicographically sorts the list
+        Collections.sort(unsolvedWords);
+        
+        return unsolvedWords;
     }
     
     /**
