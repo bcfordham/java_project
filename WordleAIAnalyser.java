@@ -90,6 +90,7 @@ public class WordleAIAnalyser
             if(list.get(i).compareTo(start) >= 0 && list.get(i).compareTo(finish) <= 0) { //compares
                 runExperiment(list.get(i));
             }
+        }
 
     }
     
