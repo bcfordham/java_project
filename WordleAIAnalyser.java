@@ -83,7 +83,14 @@ public class WordleAIAnalyser
      */
     public void runExperimentsWithWordsBetween(String start, String finish)
     {
-        // TODO 8
+        ArrayList<String> list = new ArrayList<>(); 
+        list = dictionary.getWordsWithLength(wordLength); //adds String with chosen length to Array List
+        Collections.sort(list); //sorts array list alphabetically
+        for(int i = 0; i < list.size(); i++) {
+            if(list.get(i).compareTo(start) >= 0 && list.get(i).compareTo(finish) <= 0) { //compares
+                runExperiment(list.get(i));
+            }
+
     }
     
     /**
