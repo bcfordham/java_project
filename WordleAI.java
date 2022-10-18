@@ -3,7 +3,7 @@ import java.util.*;
 /**
  * This class contains static methods that play Wordle using a simple artificial intelligence.
  *
- * @author StudentNumber1 AND StudentNumber2
+ * @author 22708346 AND 23614901
  */
 public class WordleAI
 {
@@ -49,6 +49,8 @@ public class WordleAI
         for (int i = 0; i < result.length(); i++) {
             previousChar = previousGuess.charAt(i);
             newChar = newGuess.charAt(i);
+            
+            // Checks each letter to see if its consistent with previous guesses
             switch(result.charAt(i)) {
                 case '*':
                     if (previousChar != newChar)
@@ -118,20 +120,15 @@ public class WordleAI
         String result;
         ArrayList<String> guessedWords = new ArrayList<>();
         ArrayList<String> guessResults = new ArrayList<>();
-        
-        // Determine what length of word we should be guessing
         int secretLength = game.getWordLength();
         ArrayList<String> words = dictionary.getWordsWithLength(secretLength);
-        
-        // Lexicographically sorts the list of appropriate-length words
+
         Collections.sort(words);
         
-        // Go through each word in the list
         for (int i = 0; i < words.size(); i++) {
             counter = 0;
             currentWord = words.get(i);
             
-            // Determine if the current word is consistent with previous guesses
             for (int j = 0; j < guessedWords.size(); j++) {
                 if (isConsistent(guessedWords.get(j), guessResults.get(j), currentWord))
                     counter++;
@@ -145,12 +142,10 @@ public class WordleAI
                 guessedWords.add(currentWord);
                 guessResults.add(result);
                 
-                // Return the list of guesses if the latest guess was correct
                 if (isAllStars(result))
                     return guessedWords;
             }
             
-            // Stop attempting to guess after 6 tries
             if (game.getNumGuesses() == 6)
                 break;
         }

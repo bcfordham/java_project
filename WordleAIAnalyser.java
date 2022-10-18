@@ -3,7 +3,7 @@ import java.util.*;
 /**
  * Analyses a WordleAI by running experiments and computing statistics.
  * 
- * @author StudentNumber1 AND StudentNumber2
+ * @author 22708346 AND 23614901
  */
 public class WordleAIAnalyser
 {
@@ -108,7 +108,6 @@ public class WordleAIAnalyser
         ArrayList<String> unsolvedWords = new ArrayList<>();
         String currentWord;
         
-        // Loops through each experiment result
         for (WordleExperimentResult x: experimentResults) {
             currentWord = x.getWord();
             
@@ -117,7 +116,6 @@ public class WordleAIAnalyser
                 unsolvedWords.add(currentWord);
         }
         
-        // Lexicographically sorts the list
         Collections.sort(unsolvedWords);
         
         return unsolvedWords;
@@ -138,8 +136,20 @@ public class WordleAIAnalyser
      */
     public int[] getGuessLetterFrequency()
     {
-        // TODO 10
-        return null;
+        int[] frequency = new int[26];
+        
+        for (WordleExperimentResult experiment: experimentResults) {
+            if (!getUnsolvedWords().contains(experiment.getWord())) {
+                for (String guess: experiment.getGuesses()) {
+                    
+                    // Add 1 to the frequency element corresponding to each letter in the guess
+                    for (int i = 0; i < guess.length(); i++) 
+                        frequency[guess.charAt(i) - 97]++;
+                }
+            }
+        }
+        
+        return frequency;
     }
     
     /**
@@ -152,8 +162,18 @@ public class WordleAIAnalyser
      */
     public int[] getNumGuessesFrequency()
     {
-        // TODO 11
-        return null;
+        int[] frequency = new int[7];
+        
+        for (WordleExperimentResult experiment: experimentResults) {
+            
+            // Add 1 to the frequency element corresponding to the number of guesses the AI took
+            if (!getUnsolvedWords().contains(experiment.getWord()))
+                frequency[experiment.getGuesses().size() - 1]++;
+            else
+                frequency[6]++;
+        }
+        
+        return frequency;
     }
     
     /**
@@ -182,8 +202,27 @@ public class WordleAIAnalyser
      */
     public String makeHistogram(int bucketSize)
     {
-        // TODO 12
-        return null;
+        int[] frequency = getNumGuessesFrequency();
+        Integer[] height = new Integer[7];
+        String histogram = new String();
+        
+        // Calculate heights for each bar
+        for (int i = 0; i < 7; i++)
+            height[i] = frequency[i] / bucketSize;
+        
+        for (int i = Collections.max(Arrays.asList(height)); i > 0; i--) {
+            for (int j = 0; j < 7; j++) {
+                if (height[j] >= i)
+                    histogram += "*";
+                else
+                    histogram += ".";
+                    
+                if (j == 6)
+                    histogram += "\n";
+            }
+        }
+        
+        return histogram;
     }
     
     /**
