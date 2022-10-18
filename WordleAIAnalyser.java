@@ -51,7 +51,7 @@ public class WordleAIAnalyser
         collection= WordleAI.findWord(dictionary, AIGame);
         
         result = new WordleExperimentResult(word, collection);
-        experimentResults.add(result);
+        experimentResults.add(result); //adds Wordle Experiment Result 
     }
     
     /**
@@ -63,7 +63,7 @@ public class WordleAIAnalyser
     {
         ArrayList<String> words = dictionary.getWordsWithLength(wordLength);
         for(String s: words) {
-            runExperiment(s);
+            runExperiment(s); //runs experiment for each string in dictionary
         }
     }
     
@@ -87,10 +87,9 @@ public class WordleAIAnalyser
         list = dictionary.getWordsWithLength(wordLength); //adds String with chosen length to Array List
         Collections.sort(list); //sorts array list alphabetically
         for(int i = 0; i < list.size(); i++) {
-            if(list.get(i).compareTo(start) >= 0 && list.get(i).compareTo(finish) <= 0) { //compares
+            if(list.get(i).compareTo(start) >= 0 && list.get(i).compareTo(finish) <= 0) { //finds strings in lexographic order between start and finish string
                 runExperiment(list.get(i));
             }
-        }
 
     }
     
