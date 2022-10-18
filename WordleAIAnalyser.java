@@ -90,7 +90,7 @@ public class WordleAIAnalyser
             if(list.get(i).compareTo(start) >= 0 && list.get(i).compareTo(finish) <= 0) { //finds strings in lexographic order between start and finish string
                 runExperiment(list.get(i));
             }
-
+        }
     }
     
     /**
